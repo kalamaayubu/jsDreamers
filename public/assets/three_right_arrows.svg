@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 24" fill="none" stroke="url(#gradRight)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <linearGradient id="gradRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E90FF"/>  <!-- Rich Blue -->
+      <stop offset="100%" stop-color="#8E44AD"/>  <!-- Purple -->
+    </linearGradient>
+  </defs>
+  <path d="M4 12h22"/> <!-- Main line -->
+  <path d="M18 5l7 7-7 7"/> <!-- First arrowhead -->
+  <path d="M12 5l7 7-7 7"/> <!-- Second arrowhead -->
+  <path d="M6 5l7 7-7 7"/>  <!-- Third arrowhead -->
+</svg>

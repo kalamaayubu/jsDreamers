@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#gradUp)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <linearGradient id="gradUp" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E90FF"/>  <!-- Rich Blue -->
+      <stop offset="100%" stop-color="#8E44AD"/>  <!-- Purple -->
+    </linearGradient>
+  </defs>
+  <path d="M12 19V5" /> <!-- Vertical line -->
+  <path d="M5 12l7-7 7 7" /> <!-- Arrowhead -->
+</svg>

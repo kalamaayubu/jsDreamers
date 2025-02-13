@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#gradQuotes)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <linearGradient id="gradQuotes" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E90FF"/>  <!-- Rich Blue -->
+      <stop offset="100%" stop-color="#8E44AD"/>  <!-- Purple -->
+    </linearGradient>
+  </defs>
+  <path d="M9 10h3l-2 7h-3z"/>
+  <path d="M17 10h3l-2 7h-3z"/>
+</svg>

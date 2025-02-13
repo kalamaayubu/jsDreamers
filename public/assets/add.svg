@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#gradPlus)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <linearGradient id="gradPlus" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E90FF"/>  <!-- Rich Blue -->
+      <stop offset="100%" stop-color="#8E44AD"/>  <!-- Purple -->
+    </linearGradient>
+  </defs>
+  <line x1="12" y1="5" x2="12" y2="19"/> <!-- Vertical line -->
+  <line x1="5" y1="12" x2="19" y2="12"/> <!-- Horizontal line -->
+</svg>
