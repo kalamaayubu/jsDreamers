@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import UpdateBlogPage from "./BlogToUpdate";
 
+export const revalidate = 84600; // Cache result for 1 day
 
 const fetchBlogToUpdate = async (blogId) => {
     const supabase = await  createClient();
@@ -25,7 +26,7 @@ const Page = async ({ params }) => {
     const blogFromStorage = await fetchBlogToUpdate(blogId);
 
     if (!blogFromStorage) {
-        return <div>Blog not found!</div>;
+        return <div className="animate-pulse">Loading...</div>;
     }
 
     return <UpdateBlogPage blogFromStorage={blogFromStorage} />;

@@ -8,7 +8,7 @@ import { useSearchParams } from "next/navigation";
 
 
 const PreviewPage = () => {
-    const blog = useSelector(state => state.blog.blog)
+    const blog = useSelector(state => state.blog.blog.content)
     const searchParams = useSearchParams()
     const source = searchParams.get('from') // Get the origin of navigation to preview page
     const id = searchParams.get('id')

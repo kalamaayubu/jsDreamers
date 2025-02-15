@@ -14,7 +14,7 @@ const CreateBlogPage = () => {
 
     const [title, setTitle] = useState('')
     const [file, setFile] = useState(null)
-    const [blogContent, setBlogContent] = useState(() => blog || "")
+    const [blogContent, setBlogContent] = useState(blog || "")
     const [isProcessing, setIsProcessing] = useState(false)
 
     // Function to publish the blog
@@ -48,7 +48,7 @@ const CreateBlogPage = () => {
 
             if (result.success) {
                 console.log('Blog published successfully')
-                toast.success(result.message || '✅ Blog published successfully')
+                toast.success(result.message || 'Blog published successfully')
                 return
             }
         } catch(err){

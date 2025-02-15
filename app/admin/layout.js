@@ -7,7 +7,7 @@ import { useState } from "react"
 
 export default function Layout({ children }) {
   const pathname = usePathname()
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Exclude blog editing pages(create and preview) from the admin pages layout
   if(pathname === '/admin/blogs_management/preview' || pathname === '/admin/blogs_management/create') {
@@ -16,7 +16,7 @@ export default function Layout({ children }) {
 
   return (
     <div className="bg-white h-screen flex flex-col relative">
-      <header className="bg-white border-b-[1px] p-4 py-3 fixed top-0 left-0 right-0">
+      <header className="bg-white border-gray-100 border-b-[1px] p-4 py-3 fixed top-0 left-0 right-0">
         <AdminHeader toggleSideBar={() => setSidebarOpen(prev => !prev)}/>
       </header>
 

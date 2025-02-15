@@ -3,12 +3,16 @@
 import { logout } from "@/actions/auth/logout";
 import {
   Book,
+  BotIcon,
+  ChartLine,
   ChevronUp,
   LayoutDashboard,
   LogOut,
   NewspaperIcon,
   Settings,
   User,
+  UserCog,
+  Vibrate,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -39,7 +43,7 @@ const Sidebar = ({ isOpen }) => {
       await logout();
       toast.success("Successfully loged out.");
     } catch (error) {
-      toast.error("Error occured while loging out.");
+      toast.success("Successfully loged out.");
       console.error("Error during logout", error);
     }
   };
@@ -48,6 +52,11 @@ const Sidebar = ({ isOpen }) => {
     {
       icon: LayoutDashboard,
       name: "Dashboard",
+      url: "/admin/dashboard",
+    },
+    {
+      icon: UserCog,
+      name: "Adminstration",
       url: "/admin/dashboard",
     },
     {
@@ -60,13 +69,23 @@ const Sidebar = ({ isOpen }) => {
       name: "My Blogs",
       url: "/admin/blogs_management/my_blogs",
     },
+    {
+      icon: ChartLine,
+      name: "Statistics",
+      url: "/admin/dashboard",
+    },
+    {
+      icon: Vibrate,
+      name: "Vibrate",
+      url: "/admin/dashboard",
+    },
   ];
 
   return (
     <div
       className={`${
         isOpen ? "w-52" : "w-[52px] pt-2"
-      } transition-all duration-50 relative flex flex-col h-full`}
+      } transition-all duration-50 relative flex flex-col h-full border-gray-100 border-r-[1px]`}
     >
       <div className="p-3">
         {menuItems?.map((item) => (
@@ -74,8 +93,10 @@ const Sidebar = ({ isOpen }) => {
             key={item.name}
             onClick={() => router.push(item.url)}
             className={`${
-              isOpen ? "px-3 py-1 hover:bg-gray-100" : "mb-[20px]"
-            } rounded-lg cursor-pointer`}
+              isOpen
+                ? "px-3 py-1 hover:rounded-lg hover:bg-gray-100"
+                : "mb-[24px]"
+            } cursor-pointer`}
           >
             <div
               title={`${!isOpen ? item.name : ""}`}
@@ -91,20 +112,21 @@ const Sidebar = ({ isOpen }) => {
       <div
         className={`absolute bottom-0 w-full overflow-y-clip ${
           isLogoutOpen ? "pt-12" : "h-12"
-        } ${isOpen ? "" : "mx-1"}`}
+        } ${isOpen ? "" : ""}`}
       >
         <div
           onClick={() => setIsLogoutOpen(!isLogoutOpen)}
+          title={!isOpen ? "User" : ""}
           className={`${
-            isOpen ? "" : "pl-[13px] p-[6px] mr-1"
-          } flex w-full cursor-pointer bg-white z-20 px-2 rounded-md gap-2 items-center absolute bottom-0 hover:bg-gray-50`}
+            isOpen ? "px-2" : "pl-[13px] p-[6px]"
+          } flex w-full cursor-pointer bg-white z-20 rounded-md gap-2 items-center absolute bottom-0 hover:bg-gray-50`}
         >
           <User className={`${isOpen ? "" : "size-5"}`} />
           <button className={`${isOpen ? "" : "hidden"}`}>Username</button>
           <ChevronUp
             className={`${isOpen ? "" : "hidden"} ${
-              isLogoutOpen && "rotate-0"
-            } -translate-y-[6px] transition-all duration-300 self-end rotate-180`}
+              isLogoutOpen ? "rotate-0" : "rotate-180"
+            } -translate-y-[6px] transition-all duration-300 self-end`}
           />
         </div>
 
@@ -122,6 +144,15 @@ const Sidebar = ({ isOpen }) => {
           >
             <Settings className={`size-4`} />
             <span className={`${isOpen ? "" : "hidden"}`}>Settings</span>
+          </button>
+          <button
+            title={`${!isOpen ? "Assistant" : ""}`}
+            className={` ${
+              isOpen ? "px-3 py-2" : ""
+            } whitespace-nowrap hover:bg-lightGray rounded-md flex items-center gap-2`}
+          >
+            <BotIcon className={`size-4`} />
+            <span className={`${isOpen ? "" : "hidden"}`}>Assistant</span>
           </button>
           <button
             title={`${!isOpen ? "Logout" : ""}`}

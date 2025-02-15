@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 const Menu = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [user, setUser] = useState(null);
   const router = useRouter();
 
@@ -38,8 +38,8 @@ const Menu = () => {
     <>
       <nav className="md:flex items-center gap-4 hidden">
         <Link href={"/blogs"}>Blogs</Link>
-        <p>Home</p>
-        <p>Articles</p>
+        <Link href={"/"}>Home</Link>
+        <Link href={"/admin/dashboard"}>Admin</Link>
         <p>Contacts</p>
         <button className="px-4 text-white py-2 rounded-md bg-gradient-to-br from-blue-800 to-purple-600 outline-none ">
           {user ? (
@@ -66,8 +66,8 @@ const Menu = () => {
           } bg-white translate-y-0 flex flex-col gap-2 rounded-md absolute right-7 shadow-md border transition-all duration-500`}
         >
           <Link href={"/blogs"}>Blogs</Link>
-          <p>Home</p>
-          <p>Articles</p>
+          <Link href={"/"}>Home</Link>
+          <Link href={"/admin/dashboard"}>Admin</Link>
           <p>Contacts</p>
           <button className="px-4 text-white py-2 rounded-md bg-gradient-to-br from-blue-800 to-purple-600 outline-none ">
             {user ? (

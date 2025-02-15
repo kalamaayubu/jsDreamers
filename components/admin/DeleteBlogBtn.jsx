@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const DeleteBlogBtn = ({ blogTitle, blogId }) => {
   const [title, setTitle] = useState("");
@@ -25,10 +26,10 @@ const DeleteBlogBtn = ({ blogTitle, blogId }) => {
       const res = await deleteBlog(blogId);
 
       if (res.success) {
+        toast.success(res.message);
         setOpen(false);
-        alert(res.message);
       } else {
-        alert(res.error);
+        toast.error(res.error);
       }
     } catch (error) {
       console.error("Failed to delete blog:", error);
@@ -49,7 +50,7 @@ const DeleteBlogBtn = ({ blogTitle, blogId }) => {
             className="opacity-0 cursor-pointer group-hover:opacity-100 transition-all duration-700"
           />
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="bg-white">
           <DialogHeader>
             <DialogTitle>Are you absolutely sure?</DialogTitle>
             <DialogDescription>
@@ -78,8 +79,12 @@ const DeleteBlogBtn = ({ blogTitle, blogId }) => {
               onClick={handleDelete}
               className={`rounded-md px-8 ${
                 title === blogTitle
-                  ? "bg-red-600 text-white hover:bg-red-500"
+                  ? "bg-red-600 text-white"
                   : "bg-gray-300 cursor-not-allowed opacity-90"
+              } ${
+                isProcessing
+                  ? "cursor-not-allowed opacity-60"
+                  : "hover:bg-red-500"
               }`}
             >
               {isProcessing ? "deleting..." : "delete"}

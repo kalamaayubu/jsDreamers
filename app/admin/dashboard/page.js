@@ -1,76 +1,48 @@
 'use client'
 
-import { ArrowUp, BookCheck, NewspaperIcon, Users } from "lucide-react";
+import { getNumberOfBlogs, getNumberOfMyBlogs, getNumberOfUsers } from "@/actions/admin/getStats";
+import StatsCard from "@/components/admin/StatsCard";
+import { BookCheck, Newspaper, Plane, TrendingDown, TrendingUp, Users } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const AdminRootPage = () => {
+  // Get the userID from the Redux store
+  const userId = useSelector(state => state.auth.user?.id)
+
+  // State for storing the counts
+  const [totalUsers, setTotalUsers] = useState(null)
+  const [totalBlogs, setTotalBlogs] = useState(null)
+  const [myBlogs, setMyBlogs] = useState(null)
+
+  // Fetch stats on mount
+  useEffect(() => {
+    const fetchStats = async () => {
+      const usersCount = await getNumberOfUsers()
+      const blogsCount = await getNumberOfBlogs()
+      const myBlogsCount = await getNumberOfMyBlogs(userId)
+
+      setTotalUsers(usersCount)
+      setTotalBlogs(blogsCount)
+      setMyBlogs(myBlogsCount)
+    }
+
+    fetchStats()
+  }, [userId])
+
+  const stats = [
+    { icon: Users, title: "Total users", count: totalUsers, color: "#1D4ED8", shadowColor: "#60A5FA", percentage: "4.5", trendIcon: TrendingUp },
+    { icon: BookCheck, title: "All blogs", count: totalBlogs, color: "#EA580C", shadowColor: "#FDBA74", percentage: "0.5", trendIcon: null },
+    { icon: Newspaper, title: "My Blogs", count: myBlogs, color: "#15803D", shadowColor: "#4ADE80", percentage: "2.1", trendIcon: TrendingDown },
+    { icon: Plane, title: "Total users", count: 137, color: "#7C3AED", shadowColor: "#C084FC", percentage: "6.8", trendIcon: TrendingUp },
+  ]
 
   return (
     <div className="flex flex-col gap-5 overflow-y-auto">
       <div className="flex gap-4 flex-wrap items-center" >
-        <div className="flex flex-1 gap-4 flex-col w-48 h-40 bg-white rounded-lg shadow-md py-4">
-          <div className="flex gap-4 pr-3">
-            <div className="flex gap-6 flex-1">
-              <div className="w-1 h-10 bg-blue-700 rounded-full"/>
-              <Users className="p-2 rounded-full size-10 text-white bg-blue-700 shadow-lg shadow-blue-700"/>
-            </div>
-            <div className="flex items-center gap-2 rounded-full bg-blue-100 px-[7px] self-start">
-              <ArrowUp className="size-3 text-blue-700"/>
-              <p className="text-blue-700 text-[14px]">4.5%</p>
-            </div>
-          </div>
-          <div className="flex flex-col p-4">
-            <p className="text-gray-400">Total users</p>
-            <p className="font-bold text-[1.15rem]">137</p>
-          </div>
-        </div>
-        <div className="flex flex-1 gap-4 flex-col w-48 h-40 bg-white rounded-lg shadow-md py-4">
-          <div className="flex gap-4 pr-3">
-            <div className="flex gap-6 flex-1">
-              <div className="w-1 h-10 bg-orange-700 rounded-full"/>
-              <BookCheck className="p-3 rounded-full size-10 text-white bg-orange-700 shadow-lg shadow-orange-700"/>
-            </div>
-            <div className="flex items-center gap-2 rounded-full bg-orange-100 px-[7px] self-start">
-              <ArrowUp className="size-3 text-orange-700"/>
-              <p className="text-orange-700 text-[14px]">0.5%</p>
-            </div>
-          </div>
-          <div className="flex flex-col p-4">
-            <p className="text-gray-400">All blogs</p>
-            <p className="font-bold text-[1.15rem]">76</p>
-          </div>
-        </div>
-        <div className="flex flex-1 gap-4 flex-col w-48 h-40 bg-white rounded-lg shadow-md py-4">
-          <div className="flex gap-4 pr-3">
-            <div className="flex gap-6 flex-1">
-              <div className="w-1 h-10 bg-green-700 rounded-full"/>
-              <NewspaperIcon className="p-2 rounded-full size-10 text-white bg-green-700 shadow-lg shadow-green-700"/>
-            </div>
-            <div className="flex items-center gap-2 rounded-full bg-green-100 px-[7px] self-start">
-              <ArrowUp className="size-3 text-green-700"/>
-              <p className="text-green-700 text-[14px]">4.5%</p>
-            </div>
-          </div>
-          <div className="flex flex-col p-4">
-            <p className="text-gray-400">My Blogs</p>
-            <p className="font-bold text-[1.15rem]">21</p>
-          </div>
-        </div>
-        <div className="flex flex-1 gap-4 flex-col w-48 h-40 bg-white rounded-lg shadow-md py-4">
-          <div className="flex gap-4 pr-3">
-            <div className="flex gap-6 flex-1">
-              <div className="w-1 h-10 bg-purple-700 rounded-full"/>
-              <Users className="p-2 rounded-full size-10 text-white bg-purple-700 shadow-lg shadow-purple-700"/>
-            </div>
-            <div className="flex items-center gap-2 rounded-full bg-purple-100 px-[7px] self-start">
-              <ArrowUp className="size-3 text-purple-700"/>
-              <p className="text-purple-700 text-[14px]">4.5%</p>
-            </div>
-          </div>
-          <div className="flex flex-col p-4">
-            <p className="text-gray-400">Total users</p>
-            <p className="font-bold text-[1.15rem]">137</p>
-          </div>
-        </div>
+        {stats.map((stat, index) => (
+          <StatsCard key={index} {...stat}/>
+        ))}
       </div>
 
       <div className="bg-white h-[1000px] rounded-lg p-4">

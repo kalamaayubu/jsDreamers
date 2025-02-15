@@ -2,24 +2,27 @@
 
 import { useState, useEffect } from "react";
 import RichTextEditor from "@/components/RichTextEditor";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setBlog } from "@/redux/blogSlice";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 const UpdateBlogPage = ({ blogFromStorage }) => {
-    const [title, setTitle] = useState(blogFromStorage?.title || '');
-    const [blogContent, setBlogContent] = useState(blogFromStorage?.content || '');
-    const [isProcessing, setIsProcessing] = useState(false);
-
+    const storedBlog = useSelector(state => state.blog)
     const dispatch = useDispatch();
     const router = useRouter()
     const blogId = blogFromStorage?.id;
 
-    // Set the blog for updating in Redux store
+    // Set the blogFromStorage on mount in Redux store
     useEffect(() => {
-        dispatch(setBlog(blogFromStorage));
-    }, [blogFromStorage, dispatch]);
+        if (!storedBlog?.id || storedBlog.id !== blogFromStorage?.id) {
+            dispatch(setBlog(blogFromStorage));
+        }
+    }, []);
+    
+    const [title, setTitle] = useState(storedBlog?.title || blogFromStorage?.title || '');
+    const [blogContent, setBlogContent] = useState(storedBlog?.content || blogFromStorage?.content || '');
+    const [isProcessing, setIsProcessing] = useState(false);
 
     // Handle the updating of the blog
     const handleUpdate = async (e) => {
@@ -27,7 +30,6 @@ const UpdateBlogPage = ({ blogFromStorage }) => {
 
         // Ensure that changes have been made before updating(Dont update the blog in the database if no changes were made)
         const formData = new FormData()
-
         let hasChanges = false; // Track if any changes have been made
 
         // Check for changes and append to formData accordingly
@@ -75,7 +77,7 @@ const UpdateBlogPage = ({ blogFromStorage }) => {
     // Handle the preview action
     const handlePreview = (e, source) => {
         e.preventDefault()
-        dispatch(setBlog(blogContent))
+        dispatch(setBlog({ id: blogId, title, content: blogContent }));
         router.push(`/admin/blogs_management/preview?from=${source}&id=${blogId}`)
     }
 

@@ -1,28 +1,12 @@
-<svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
->
-    <defs>
-        <linearGradient id="gradient-update" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#3B82F6"/> <!-- Softer Blue -->
-            <stop offset="100%" stop-color="#A855F7"/> <!-- Purple -->
-        </linearGradient>
-    </defs>
-    <path
-        d="M12 4V2M12 22v-2M4.93 4.93l-1.42-1.42M19.07 19.07l1.42 1.42M2 12H4M20 12h2M4.93 19.07l-1.42 1.42M19.07 4.93l1.42-1.42"
-        stroke="url(#gradient-update)"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-    />
-    <path
-        d="M8 12a4 4 0 1 1 8 0"
-        stroke="url(#gradient-update)"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-    />
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#gradEdit)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <linearGradient id="gradEdit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E90FF"/>  <!-- Blue -->
+      <stop offset="100%" stop-color="#8E44AD"/>  <!-- Purple -->
+    </linearGradient>
+  </defs>
+  <!-- Pencil Body -->
+  <path d="M4 20l3-1 10.5-10.5a2.5 2.5 0 0 0-3.5-3.5L4 15l-1 3z"/>
+  <!-- Pencil Tip -->
+  <path d="M14.5 6.5l3 3"/>
 </svg>

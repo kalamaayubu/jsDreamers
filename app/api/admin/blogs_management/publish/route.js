@@ -8,7 +8,7 @@ export async function POST(req) {
 
     // Get the logged in user's ID (This is the author)
     const { data: { user }, error: authError } = await supabase.auth.getUser();
-    console.log('USER:', user.id)
+    console.log('USER:', user?.id)
 
     if (authError || !user) {
         return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
