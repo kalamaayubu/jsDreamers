@@ -2,10 +2,12 @@
 
 import RichTextEditor from "@/components/RichTextEditor"
 import { setBlog } from "@/redux/blogSlice"
+import dynamic from "next/dynamic"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
+
 
 const CreateBlogPage = () => {
     const dispatch = useDispatch()
