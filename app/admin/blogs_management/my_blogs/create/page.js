@@ -2,7 +2,6 @@
 
 import RichTextEditor from "@/components/RichTextEditor"
 import { setBlog } from "@/redux/blogSlice"
-import dynamic from "next/dynamic"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -14,15 +13,15 @@ const CreateBlogPage = () => {
     const router = useRouter()
     const blog = useSelector(state => state.blog.blog)
 
-    const [title, setTitle] = useState('')
+    const [title, setTitle] = useState(blog?.title || '')
     const [file, setFile] = useState(null)
-    const [blogContent, setBlogContent] = useState(blog || "")
+    const [blogContent, setBlogContent] = useState(blog?.content || "")
     const [isProcessing, setIsProcessing] = useState(false)
 
     // Function to publish the blog
     const handlePublish = async (e) => {
         e.preventDefault()
-        dispatch(setBlog(blogContent))
+        dispatch(setBlog({ title: title, content: blogContent }))
         setIsProcessing(true)
 
         console.log(blogContent)
@@ -64,7 +63,7 @@ const CreateBlogPage = () => {
     // Handle the preview action
     const handlePreview = (e, source) => {
         e.preventDefault()
-        dispatch(setBlog(blogContent))
+        dispatch(setBlog({ title: title, content: blogContent }))
         router.push(`/admin/blogs_management/preview?from=${source}`)
     }
 

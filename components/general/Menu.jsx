@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 const Menu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
@@ -30,7 +31,7 @@ const Menu = () => {
   // Handle logout
   const handleLogout = async () => {
     await logout();
-    alert("✅ Logged out");
+    toast.success("Successfully logged out.");
     router.push("/auth/login");
   };
 
