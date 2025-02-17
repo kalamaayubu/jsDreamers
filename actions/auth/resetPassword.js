@@ -26,6 +26,6 @@ export async function resetPassword(newPassword, accessToken) {
         return { success: false, error: error.message}
     }
     
-    console.log('✅ Password upated successfull')
-    return { success: true, message: '✅ Password upated successfull' }
+    console.log('Password upated successfully.')
+    return { success: true, message: 'Password upated successfully' }
 }

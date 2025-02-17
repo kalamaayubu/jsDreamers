@@ -6,7 +6,7 @@ const AboutCard = ({ image, heading, description }) => {
           <img src={`${image}`} alt="greenCheck" className="" />
           <h4 className="text-[18px] font-bold"> {heading}</h4>
         </div>
-        <p className="ml-10">{description}</p>
+        <p className="ml-10 text-gray-800">{description}</p>
       </div>
     </div>
   );

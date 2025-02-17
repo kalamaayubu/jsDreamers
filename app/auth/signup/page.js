@@ -26,8 +26,8 @@ const SignupPage = () => {
 
             toast.success(result.message)
         } catch (error) {
-            console.error("Signup Error:", error.message);
-            toast.error(`Error signing up: ${error.message}`)
+            console.error("Signup Error:", error);
+            toast.error(`${error.message}`)
         } finally {
             setIsProcessing(false);
             setEmail("");

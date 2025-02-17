@@ -21,5 +21,5 @@ export async function forgotPassword(email) {
         return { success: false, error: sendEmailError.message };
     }
 
-    return { success: true, message: '✅Reset email sent successfully. Check your inbox.'}
+    return { success: true, message: 'Request sent successfully. Check your email.'}
 }

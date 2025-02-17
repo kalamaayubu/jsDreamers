@@ -2,6 +2,7 @@
 
 import { logout } from "@/actions/auth/logout";
 import {
+  Bell,
   Book,
   BotIcon,
   ChartLine,
@@ -146,13 +147,13 @@ const Sidebar = ({ isOpen }) => {
             <span className={`${isOpen ? "" : "hidden"}`}>Settings</span>
           </button>
           <button
-            title={`${!isOpen ? "Assistant" : ""}`}
+            title={`${!isOpen ? "Notifiacations" : ""}`}
             className={` ${
               isOpen ? "px-3 py-2" : ""
             } whitespace-nowrap hover:bg-lightGray rounded-md flex items-center gap-2`}
           >
-            <BotIcon className={`size-4`} />
-            <span className={`${isOpen ? "" : "hidden"}`}>Assistant</span>
+            <Bell className={`size-4`} />
+            <span className={`${isOpen ? "" : "hidden"}`}>Notifiacations</span>
           </button>
           <button
             title={`${!isOpen ? "Logout" : ""}`}

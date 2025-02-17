@@ -15,7 +15,8 @@ export async function deleteBlog(blogId) {
         return { success: false, error: error.message };
     }
     
-    // Revalidate path to refresh blog list
+    // Revalidate the desired paths and return a response
     revalidatePath("/admin/blogs_management/my_blogs");
+    revalidatePath("/admin/dashboard");
     return { success: true, message: 'Blog deleted successfully.'}
 }

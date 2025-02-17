@@ -1,3 +1,4 @@
+import Link from "next/link";
 import AboutCard from "./AboutCard";
 
 const About = () => {
@@ -8,15 +9,19 @@ const About = () => {
           <img src="/assets/javascript.avif" className="rounded-xl w-full" />
         </div>
         <p className="w-full text-xl text-gray-800">
-          At jsDreamers, we're committed to sharing everything we've
-          learned—completely free, forever. We understand that passion and
-          commitment should define your journey, not your financial situation.
-          Our goal is to provide valuable resources for those who are eager to
-          learn but may not have the means for paid courses.
+          Our mission is to empower aspiring developers by providing
+          high-quality, free resources focused on tech education, with a special
+          emphasis on JavaScript. We believe that learning should be fueled by
+          passion and curiosity, not the size of the wallet. Every tutorial,
+          blog, and guide we offer is designed to break down financial barriers
+          and help learners of all backgrounds build the skills they need to
+          thrive in the tech world.
         </p>
-        <button className="bg-blue-700 text-white rounded-md px-4 py-2 hover:bg-blue-600 mt-8 self-start">
-          Start learning
-        </button>
+        <Link href={"/blogs"} className="self-start">
+          <button className="bg-blue-700 text-white rounded-md px-4 py-2 hover:bg-blue-600 mt-8">
+            Start learning
+          </button>
+        </Link>
       </div>
       <div className="lg:w-1/2 flex flex-col items-center mt-10">
         <h2 className="font-bold m-auto md:text-[2.2rem] text-[2.0rem] max-w-[500px] text-center mb-2">

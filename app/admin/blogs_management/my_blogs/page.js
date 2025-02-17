@@ -37,8 +37,10 @@ const MyBlogsPage = async () => {
         <h3 className="">My blogs</h3>
         <div className="flex gap-5 flex-wrap">
             { blogs?.map(blog => (
-                <div key={blog.id} className="shadow-md hover:shadow-xl hover:scale-95 cursor-default transition-all duration-300 max-w-[300px] min-w-[200px] xs:min-w-[180px] flex-1 rounded-b-lg border flex flex-col gap-1 group bg-white">
-                    <Image width={1000} height={1000} src={blog.image} alt="Blog image" className="object-cover h-auto w-full"/>
+                <div key={blog.id} className="shadow-md hover:shadow-xl cursor-default transition-all duration-300 max-w-[300px] min-w-[200px] xs:min-w-[180px] rounded-b-lg border flex flex-col gap-1 group bg-white">
+                    <div className="h-[200px]">
+                        <Image width={1000} height={1000} src={blog.image} alt="Blog image" className="object-cover h-full w-full"/>
+                    </div>
                     <div className="p-2">
                         <p className="line-clamp-2">{blog.title}</p>
                         <div className="flex justify-around transition-all duration-700 my-2 mt-2 items-center">

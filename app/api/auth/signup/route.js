@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 import { rollbackUser } from "../../../../utils/rollbackSignup";
+import supabaseAdmin from "@/lib/supabase/supabaseAdmin";
 
 export async function POST(req) {
     try {
@@ -27,7 +28,7 @@ export async function POST(req) {
             console.error("Transaction Error:", rpcError.message);
 
             // 🚨 Rollback: Delete user if profile creation fails
-            const rollbackSuccess = await rollbackUser(supabase, userId)
+            const rollbackSuccess = await rollbackUser(supabaseAdmin, userId)
 
             if (!rollbackSuccess) {
                 return NextResponse.json({ success: false, error: "Signup failed, could not rollback. Please contact support."}, { status: 500 })
@@ -36,9 +37,23 @@ export async function POST(req) {
             return NextResponse.json({ success: false, error: "Signup failed, user deleted." }, { status: 400 });
         }
 
+        const { data: userProfile, error: profileError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', userId)
+            .single();
+
+        if (profileError) {
+            console.error("Profile Insertion Error:", profileError?.message);
+            return NextResponse.json({ success: false, error: "Signup failed, profile not created." }, { status: 400 });
+        }
+        if (!userProfile) {
+            console.error("User profile not found.");
+            return NextResponse.json({ success: false, error: "User profile not found." }, { status: 400 });
+        }
+
         console.log("Successfully signed up:", user);
-        return NextResponse.json({ success: true, user, message: "Signup successful. Please Check your email for verification." }, { status: 200 });
-        
+        return NextResponse.json({ success: true, user, message: "Signup successful. Check your email for verification." }, { status: 200 });
     } catch (err) {
         console.error("API Error:", err);
         return NextResponse.json({ success: false, error: "Internal Server Error" }, { status: 500 });

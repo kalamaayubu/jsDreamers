@@ -36,11 +36,14 @@ const BlogsPage = async () => {
                 {blogs && blogs.length > 0 ? (
                     blogs.map((blog) => (
                       <div key={blog.id} className='shadow-md rounded-lg border border-gray-100 flex flex-col gap-2'>
-                        <div className=''>
-                          <img src={`${blog.image}`} className='w-full' />
+                        <div className='h-[200px]'>
+                          <img 
+                            src={`${blog.image}`} 
+                            className='w-full object-cover h-full' 
+                          />
                         </div>
                         <div className='text-xl px-4 py-2 flex flex-col gap-2'>
-                          <p className='truncate'>{blog.description || blog.title}</p>
+                          <p className='line-clamp-2'>{blog.title}</p>
                           <Link
                             href={`/blogs/${blog.id}`}
                             className='flex gap-4 hover:gap-2 items-center justify-end cursor-pointer'

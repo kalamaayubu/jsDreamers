@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Hero = () => {
@@ -17,7 +18,7 @@ const Hero = () => {
           learned—completely free, forever. We understand that passion and
           commitment should define your journey, not your financial situation.
           Our goal is to provide valuable resources for those who are eager to
-          learn but may not have the means for paid courses.
+          learn but may not have the means for paid resources.
         </p>
         <button className="bg-blue-700 text-white rounded-md px-4 py-2 hover:bg-blue-600 hidden lg:flex">
           Start learning
@@ -29,9 +30,11 @@ const Hero = () => {
           alt="Hero"
           className="object-cover min-w-[500px] sm:w-[650px]"
         />
-        <button className="bg-blue-700 text-white rounded-md px-4 py-2 hover:bg-blue-600 mt-8 m-auto lg:hidden">
-          Start learning
-        </button>
+        <Link href={"/blogs"}>
+          <button className="bg-blue-700 text-white rounded-md px-4 py-2 hover:bg-blue-600 mt-8 m-auto lg:hidden">
+            Start learning
+          </button>
+        </Link>
       </div>
     </section>
   );

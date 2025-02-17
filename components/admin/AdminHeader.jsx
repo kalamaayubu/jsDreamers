@@ -6,6 +6,7 @@ import { useState } from "react";
 
 const AdminHeader = ({ toggleSideBar }) => {
   const [search, setSearch] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
     <div className="flex gap-4 items-center justify-between w-full">
@@ -26,12 +27,20 @@ const AdminHeader = ({ toggleSideBar }) => {
         <Menu onClick={toggleSideBar} className="cursor-pointer mx-2" />
       </div>
 
-      <div className="flex gap-2 items-center px-4 py-[2px] rounded-full bg-gray-100">
+      <div
+        className={`${
+          isFocused
+            ? "bg-white shadow-md border-[1px] border-gray-100"
+            : "bg-gray-100"
+        } flex gap-2 items-center px-4 py-[2px] rounded-full`}
+      >
         <Search className="text-gray-500 w-5" />
         <input
           type="text"
           value={search}
-          className="border-none bg-gray-100"
+          className={`${isFocused ? "bg-white" : "bg-gray-100"} border-none`}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           placeholder="Search here..."
           onChange={(e) => setSearch(e.target.value)}
         />

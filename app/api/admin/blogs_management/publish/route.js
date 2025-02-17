@@ -1,60 +1,72 @@
-import { createClient } from "@/lib/supabase/server"
-import { mkdir, writeFile} from 'fs/promises';
+import { createClient } from "@/lib/supabase/server"; // Use this only for user auth
 import { revalidatePath } from "next/cache";
-import { join } from "path";
 
 export async function POST(req) {
-    const supabase = await createClient()
+    const supabase = await createClient();
 
-    // Get the logged in user's ID (This is the author)
+    // Get the logged-in user's ID (This is the author)
     const { data: { user }, error: authError } = await supabase.auth.getUser();
-    console.log('USER:', user?.id)
+    console.log("USER:", user?.id);
 
     if (authError || !user) {
         return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
     }
 
     // Get the content of the request
-    const reqData = await req.formData()
-    const title = reqData.get('title')
-    const blogContent = reqData.get('content')
-    const blogImage = reqData.get('blogImage')
+    const reqData = await req.formData();
+    const title = reqData.get("title");
+    const blogContent = reqData.get("content");
+    const blogImage = reqData.get("blogImage");
 
-    // Convert file( blogImage in this case ) to a buffer
-    const bytes = await blogImage.arrayBuffer()
-    const buffer = Buffer.from(bytes)
-
-    // Define the directory and path to save the file
-    const publicDir = join(process.cwd(), 'public', 'blogs_banners')
-    const path = join(publicDir, blogImage.name) // Construct the full path
+    let imageUrl = null;
 
     try {
-        // Ensure that blogs_banners directory exist, creating it recursively if not
-        await mkdir(publicDir, { recursive: true })
-        await writeFile(path, buffer) // Write the uploaded file to the constructed path
+        if (blogImage) {
+            // Convert file into a buffer
+            const bytes = await blogImage.arrayBuffer();
+            const buffer = Buffer.from(bytes);
 
-        const fileUrl = `/blogs_banners/${blogImage.name}`
+            // Define a unique filename (timestamp + original name)
+            const filePath = `blogs/${Date.now()}-${blogImage.name}`;
+
+            // Upload file to the storage
+            const { data, error } = await supabase.storage
+                .from("blogs-bucket")
+                .upload(filePath, buffer, { contentType: blogImage.type });
+
+            if (error) {
+                console.error("Error uploading image:", error);
+                return new Response(JSON.stringify({ error: "Error uploading image" }), { status: 500 });
+            }
+
+            // Correct usage of getPublicUrl()
+            imageUrl = supabase.storage.from("blogs-bucket").getPublicUrl(filePath).data.publicUrl;
+        }
 
         // Insert blog into supabase
-        const { data, error } = await supabase.from('blogs').insert([
-            {
-                title,
-                content: blogContent,
-                image: fileUrl,
-                author: user.id
-            }
-        ]);
+        const { data, error } = await supabase
+            .from("blogs")
+            .insert([
+                {
+                    title,
+                    content: blogContent,
+                    image: imageUrl,
+                    author: user.id,
+                }
+            ]);
 
         if (error) {
+            console.error("Error inserting blog:", error);
             return new Response(JSON.stringify({ error: error.message }), { status: 500 });
         }
 
-        // Trigger the revealidation of blogs page
-        revalidatePath('/blogs')
-        return new Response(JSON.stringify({ success: true, data, message: 'Blog published successful' }), { status: 201 });
+        // Revalidate the desired paths and return a response
+        revalidatePath("/blogs");
+        revalidatePath("/admin/blogs_management/my_blogs");
+        return new Response(JSON.stringify({ success: true, data, message: "Blog published successfully" }), { status: 201 });
 
     } catch (error) {
-        console.log('Error uploading image:', error)
-        return new Response(JSON.stringify({ message: 'Error uploading image'}), { status: 500 });
+        console.error("Error:", error);
+        return new Response(JSON.stringify({ message: "Error processing request" }), { status: 500 });
     }
 }
