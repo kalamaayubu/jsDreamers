@@ -13,7 +13,7 @@ export async function forgotPassword(email) {
 
     // Send the password reset email
     const { error: sendEmailError } = await supabaseAdmin.auth.resetPasswordForEmail(email, { 
-        redirectTo: `http://localhost:3000/auth/reset_password`
+        redirectTo: `https://jsdreamers.netlify.app/auth/reset_password`
     })
 
     if (sendEmailError) {

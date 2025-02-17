@@ -39,8 +39,8 @@ const LoginPage = () => {
             }))
 
             // Navigate only after updating state
-            router.push(result.redirectUrl)
             toast.success(`${result.message}`)
+            router.push(result.redirectUrl)
         } catch (error) {
             console.error('Error loging in:', error.stack)
             toast.error(`${error}`)
