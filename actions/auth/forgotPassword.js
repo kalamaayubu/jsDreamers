@@ -11,9 +11,14 @@ export async function forgotPassword(email) {
         return { success: false, error: `${error.message}` };
     }
 
+    // Get the base URL dynamically for appropriate redirection
+    const baseUrl = process.env.NODE_ENV === 'production'
+        ? 'https://jsdreamers.netlify.app'
+        : 'http://localhost:3000';
+
     // Send the password reset email
     const { error: sendEmailError } = await supabaseAdmin.auth.resetPasswordForEmail(email, { 
-        redirectTo: `https://jsdreamers.netlify.app/auth/reset_password`
+        redirectTo: `${baseUrl}/auth/reset_password`
     })
 
     if (sendEmailError) {
@@ -21,5 +26,5 @@ export async function forgotPassword(email) {
         return { success: false, error: sendEmailError.message };
     }
 
-    return { success: true, message: 'Request sent successfully. Check your email.'}
+    return { success: true, message: 'Request sent. Check your email.'}
 }

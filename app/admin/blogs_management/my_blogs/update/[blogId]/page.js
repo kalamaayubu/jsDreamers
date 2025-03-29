@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import UpdateBlogPage from "./BlogToUpdate";
 
-export const revalidate = 84600; // Cache result for 1 day
+export const revalidate = 0; // dont cache the result
 
 const fetchBlogToUpdate = async (blogId) => {
     const supabase = await  createClient();
@@ -21,7 +21,7 @@ const fetchBlogToUpdate = async (blogId) => {
 }
 
 const Page = async ({ params }) => {
-    const { blogId } = await params;
+    const { blogId } = await params; // Get blogId form params
 
     const blogFromStorage = await fetchBlogToUpdate(blogId);
 

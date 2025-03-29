@@ -4,29 +4,34 @@ import { useState, useEffect } from "react";
 import RichTextEditor from "@/components/RichTextEditor";
 import { useDispatch, useSelector } from "react-redux";
 import { setBlog } from "@/redux/blogSlice";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 const UpdateBlogPage = ({ blogFromStorage }) => {
-    const storedBlog = useSelector(state => state.blog)
+    const storedBlog = useSelector(state => state.blog.blog)
     const dispatch = useDispatch();
     const router = useRouter()
+    const pathname = usePathname()
     const blogId = blogFromStorage?.id;
+
+    // Tracking states
+    const [title, setTitle] = useState(storedBlog?.title || blogFromStorage?.title || '');
+    const [blogContent, setBlogContent] = useState(storedBlog?.content || blogFromStorage?.content || '');
+    const [isProcessing, setIsProcessing] = useState(false);
+
 
     // Set the blogFromStorage on mount in Redux store
     useEffect(() => {
         if (!storedBlog?.id || storedBlog.id !== blogFromStorage?.id) {
             dispatch(setBlog(blogFromStorage));
+        } else {
         }
-    }, []);
+    }, [pathname]);
     
-    const [title, setTitle] = useState(storedBlog?.title || blogFromStorage?.title || '');
-    const [blogContent, setBlogContent] = useState(storedBlog?.content || blogFromStorage?.content || '');
-    const [isProcessing, setIsProcessing] = useState(false);
-
     // Handle the updating of the blog
     const handleUpdate = async (e) => {
         e.preventDefault()
+        setIsProcessing(true)
 
         // Ensure that changes have been made before updating(Dont update the blog in the database if no changes were made)
         const formData = new FormData()
@@ -83,8 +88,18 @@ const UpdateBlogPage = ({ blogFromStorage }) => {
 
     return (
         <div className="">
-            <div className="w-[100%] max-w-[900px] m-auto">
-                <h3 className="text-center">Update blog</h3>
+            <div className="w-[100%] max-w-[900px] flex flex-col m-auto bg-white">
+                <h3 className="text-center text-2xl py-8">Update blog</h3>
+                <div className="flex gap-4 items-center justify-center pb-5 self-end px-8">
+                    <button
+                        type="submit"
+                        disabled={isProcessing}
+                        className={`border-2 border-blue-600 hover:text-white rounded-lg hover:bg-blue-600 text-black px-4 py-2 outline-none ${isProcessing ? 'cursor-not-allowed' : ''}`}
+                    >
+                        {isProcessing ? <span className="animate-pulse">Updating...</span> : <span>Update</span>}
+                    </button>
+                    <button onClick={(e) => handlePreview(e, 'update')} className="bg-blue-600 border-2 border-blue-600 hover:bg-white rounded-md text-white hover:text-black px-4 py-2 outline-none">Preview</button>
+                </div>
                 <form onSubmit={handleUpdate} className="m-4 bg-white rounded-lg">
                     <div className="p-4 m-auto">
                         <div className="max-w-[700px] m-auto mb-4 flex flex-col">
@@ -101,16 +116,6 @@ const UpdateBlogPage = ({ blogFromStorage }) => {
                             </fieldset>
                         </div>
                         <RichTextEditor editorContent={blogContent} setEditorContent={setBlogContent} />
-                    </div>
-                    <div className="flex gap-4 items-center justify-center pb-5">
-                        <button
-                            type="submit"
-                            disabled={isProcessing}
-                            className={`bg-blue-800 rounded-md text-white px-4 py-2 outline-none ${isProcessing ? 'cursor-not-allowed' : 'hover:bg-blue-600'}`}
-                        >
-                            {isProcessing ? <span className="animate-pulse">Updating...</span> : <span>Update</span>}
-                        </button>
-                        <button onClick={(e) => handlePreview(e, 'update')} className="bg-blue-800 rounded-md text-white hover:bg-blue-600 px-4 py-2 outline-none">Preview</button>
                     </div>
                 </form>
             </div>
