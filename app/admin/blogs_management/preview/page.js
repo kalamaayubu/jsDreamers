@@ -18,7 +18,7 @@ const PreviewPage = () => {
         <NavBar/>
     
     <div 
-        className="ql-editor p-4 max-w-[800px] m-auto w-[80%]"
+        className="ql-editor p-4 max-w-[800px] m-auto w-[80%] mt-5 sm:mt-6 lg:mt-8"
         dangerouslySetInnerHTML={{__html: blog}}
     >
     </div>

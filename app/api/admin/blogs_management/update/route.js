@@ -24,7 +24,7 @@ export async function POST(req) {
 
         // If no fields are provided to update, return an error response
         if (Object.keys(updatedFields).length === 0) {
-            return NextResponse.json({ success: false, error: 'No changes detected to update' }, { status: 400 });
+            return NextResponse.json({ success: false, error: 'No changes to update.' }, { status: 400 });
         }
 
         // Update the blog in the database
