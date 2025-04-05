@@ -13,11 +13,11 @@ const AdminHeader = ({ toggleSideBar }) => {
       <div className="flex gap-5 items-center">
         <div className="flex gap-4 items-center">
           <Image
-            width={20}
-            height={20}
+            width={800}
+            height={800}
             alt="Logo"
-            src="/assets/logo.svg"
-            className="w-8"
+            src="/assets/logo3D.png"
+            className="w-12"
           />
           <span className="font-semibold text-xl hidden md:flex">
             jsDreamers
@@ -32,7 +32,7 @@ const AdminHeader = ({ toggleSideBar }) => {
           isFocused
             ? "bg-white shadow-md border-[1px] border-gray-100"
             : "bg-gray-100"
-        } flex gap-2 items-center px-4 py-[2px] rounded-full`}
+        } hidden md:flex gap-2 items-center px-4 py-[2px] rounded-full`}
       >
         <Search className="text-gray-500 w-5" />
         <input

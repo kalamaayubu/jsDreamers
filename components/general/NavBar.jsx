@@ -4,7 +4,7 @@ const NavBar = () => {
   return (
     <header className="w-full flex items-center justify-between mb-1 px-2 pt-3 z-10">
       <div className="flex items-center">
-        <img src="/assets/logo.svg" alt="Svg" className="w-9" />
+        <img src="/assets/logo3D.png" alt="Svg" className="w-14" />
         <p className="hidden sm:flex bg-gradient-to-br from-blue-700 from-20% via-purple-600 via-90% bg-clip-text text-transparent font-semibold text-xl">
           &nbsp;&nbsp;&nbsp;jsDreamers
         </p>

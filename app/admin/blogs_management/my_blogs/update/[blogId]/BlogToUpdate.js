@@ -27,7 +27,7 @@ const UpdateBlogPage = ({ blogFromStorage }) => {
             dispatch(setBlog(blogFromStorage));
         } else {
         }
-    }, [pathname]);
+    }, [pathname, blogFromStorage, dispatch, storedBlog?.id]);
     
     // Handle the updating of the blog
     const handleUpdate = async (e) => {

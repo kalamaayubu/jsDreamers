@@ -1,6 +1,7 @@
 'use client'
 
 import { loginSuccess } from "@/redux/authSlice"
+import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -52,7 +53,14 @@ const LoginPage = () => {
   return (
     <div className="h-screen flex">
     <div className="m-auto max-w-[400px] w-[80%] -translate-y-4">
-        <h3 className="text-center">Login</h3>
+        {/* <h3 className="text-center">Login</h3> */}
+        <div className="items-center flex justify-center mb-7">
+            <Image height={800} width={800} src="/assets/logo3D.png" alt="Svg" className="w-14" />
+            <p className="flex bg-gradient-to-br from-blue-700 from-20% via-purple-600 via-90% bg-clip-text text-transparent font-bold text-2xl">
+            &nbsp;&nbsp;&nbsp;jsDreamers
+            </p>
+        </div>
+        {/* <p className="font-semibold text-center text-gray-600">Fill in your credentials to log in</p> */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-2  m-auto mb-3">
             <input
                 type="email"

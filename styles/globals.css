@@ -62,4 +62,12 @@ button {
 .ql-align-center {
   @apply text-center;
 }
+
+.ql-code-block-container {
+  @apply overflow-y-hidden;
+}
+
+.ql-code-block {
+  @apply whitespace-pre;
+}
 /* END OF REACT QUILL STYLES */
