@@ -16,7 +16,7 @@ const AdminHeader = ({ toggleSideBar }) => {
             width={800}
             height={800}
             alt="Logo"
-            src="/assets/logo3D.png"
+            src="/assets/logo3D-min.png"
             className="w-12"
           />
           <span className="font-semibold text-xl hidden md:flex">

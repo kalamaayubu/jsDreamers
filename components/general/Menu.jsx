@@ -32,7 +32,7 @@ const Menu = () => {
   const handleLogout = async () => {
     await logout();
     toast.success("Successfully logged out.");
-    router.push("/auth/login");
+    router.push("/");
   };
 
   return (

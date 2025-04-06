@@ -64,10 +64,13 @@ button {
 }
 
 .ql-code-block-container {
-  @apply overflow-y-hidden;
+  @apply text-sm;
 }
 
 .ql-code-block {
   @apply whitespace-pre;
+}
+pre {
+  @apply text-[15px] max-h-[400px] overflow-auto !important;
 }
 /* END OF REACT QUILL STYLES */

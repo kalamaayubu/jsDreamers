@@ -95,7 +95,7 @@ const UpdateBlogPage = ({ blogFromStorage }) => {
                 <h3 className="text-center text-2xl py-8">Update blog</h3>
                 
                 <form onSubmit={handleUpdate} className="m-4 bg-white rounded-lg flex flex-col-reverse">
-                    <div className="p-4 m-auto">
+                    <div className="p-4">
                         <div className="max-w-[700px] m-auto mb-4 flex flex-col">
                             <fieldset className="border max-w-[800px] rounded-md">
                                 <legend className="text-lg font-semibold ml-3">Blog Title</legend>

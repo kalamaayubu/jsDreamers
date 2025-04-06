@@ -69,9 +69,9 @@ const CreateBlogPage = () => {
 
   return (
     <div className="">
-        <div className="w-[100%] max-w-[900px] m-auto">
+        <div className="w-[100%] max-w-[900px] m-auto bg-white">
             <h3 className="text-center">Create new blog</h3>
-            <div >
+            <div>
                 <form onSubmit={handlePublish} className="bg-white p-4 rounded-lg">
                     <div className="p-4 m-auto">
                         <div className="max-w-[700px] m-auto mb-4 flex flex-col">
