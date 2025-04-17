@@ -9,7 +9,7 @@ const ContinueWithGoogle = () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `https://localhost:3000/auth/forgot_password`,
+        redirectTo: `${window.location.origin}/auth/forgot_password`,
       },
     });
     if (error) {
