@@ -44,7 +44,7 @@ const MyBlogsPage = async () => {
                     <div className="p-2">
                         <p className="line-clamp-2">{blog.title}</p>
                         <div className="flex justify-around transition-all duration-700 my-2 mt-2 items-center">
-                            <DeleteBlogBtn blogTitle={blog.title} blogId={blog.id}/>
+                            <DeleteBlogBtn blogTitle={blog.title} blogId={blog.id} blogImage={blog.image}/>
                             <Link href={`/admin/blogs_management/my_blogs/update/${blog.id}`}>
                                 <PenBoxIcon className="opacity-0 text-blue-800 cursor-pointer group-hover:opacity-100 transition-all duration-700"/>
                             </Link>

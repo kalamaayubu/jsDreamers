@@ -1,5 +1,7 @@
 'use client'
 
+import ContinueWithGithub from "@/components/client/ContinueWithGithub"
+import ContinueWithGoogle from "@/components/client/ContinueWithGoogle"
 import { loginSuccess } from "@/redux/authSlice"
 import Image from "next/image"
 import Link from "next/link"
@@ -52,15 +54,20 @@ const LoginPage = () => {
 
   return (
     <div className="h-screen flex">
-    <div className="m-auto max-w-[400px] w-[80%] -translate-y-4">
-        {/* <h3 className="text-center">Login</h3> */}
+        <div className="m-auto max-w-[450px] w-[80%] -translate-y-4 border border-gray-100 p-6 shadow-md rounded-lg">
         <div className="items-center flex justify-center mb-7">
             <Image height={800} width={800} src="/assets/logo3D.png" alt="Svg" className="w-14" />
             <p className="flex bg-gradient-to-br from-blue-700 from-20% via-purple-600 via-90% bg-clip-text text-transparent font-bold text-2xl">
             &nbsp;&nbsp;&nbsp;jsDreamers
             </p>
         </div>
-        {/* <p className="font-semibold text-center text-gray-600">Fill in your credentials to log in</p> */}
+        <div className="flex flex-col w-full lg:items-center gap-3 lg:flex-row ">
+            <ContinueWithGoogle/>
+            <ContinueWithGithub/>
+        </div>
+        <div className="my-4 text-gray-400 flex justify-center">
+            <p>OR login with email and password</p>
+        </div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-2  m-auto mb-3">
             <input
                 type="email"

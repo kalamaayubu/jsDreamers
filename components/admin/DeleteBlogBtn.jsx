@@ -14,7 +14,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-const DeleteBlogBtn = ({ blogTitle, blogId }) => {
+const DeleteBlogBtn = ({ blogTitle, blogId, blogImage }) => {
   const [title, setTitle] = useState("");
   const [open, setOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -23,7 +23,7 @@ const DeleteBlogBtn = ({ blogTitle, blogId }) => {
   const handleDelete = async () => {
     setIsProcessing(true);
     try {
-      const res = await deleteBlog(blogId);
+      const res = await deleteBlog(blogId, blogImage); // Delete the blog and the image
 
       if (res.success) {
         toast.success(res.message);
