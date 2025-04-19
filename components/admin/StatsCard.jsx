@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { RoundSkeleton } from "../general/RoundSkeleton";
 
 const StatsCard = ({

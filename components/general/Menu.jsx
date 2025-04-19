@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { logout } from "@/actions/auth/logout";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import { MenuIcon } from "lucide-react";
 
 const Menu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
@@ -42,7 +42,7 @@ const Menu = () => {
         <Link href={"/"}>Home</Link>
         <Link href={"/admin/dashboard"}>Admin</Link>
         <p>Contacts</p>
-        <button className="px-4 text-white py-2 rounded-md bg-gradient-to-br from-blue-800 to-purple-600 outline-none ">
+        <button className="gradient-button-blue-purple">
           {user ? (
             <span onClick={handleLogout}>Logout</span>
           ) : (
@@ -53,13 +53,9 @@ const Menu = () => {
 
       {/* Small screens navigation */}
       <nav className={`md:hidden overflow-hidden`}>
-        <Image
-          width={35}
-          height={30}
-          src={"/assets/ghost_menu.svg"}
-          alt="Menu"
+        <MenuIcon
           onClick={() => setIsMenuOpen((prev) => !prev)}
-          className="cursor-pointer relative"
+          className="cursor-pointer"
         />
         <div
           className={`p-6 ${
@@ -70,7 +66,7 @@ const Menu = () => {
           <Link href={"/"}>Home</Link>
           <Link href={"/admin/dashboard"}>Admin</Link>
           <p>Contacts</p>
-          <button className="px-4 text-white py-2 rounded-md bg-gradient-to-br from-blue-800 to-purple-600 outline-none ">
+          <button className="gradient-button-blue-purple">
             {user ? (
               <span onClick={handleLogout}>Logout</span>
             ) : (

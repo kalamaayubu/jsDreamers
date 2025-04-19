@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 
 // Custom Shimmer Skeleton for Image
 const ShimmerImage = () => (
-  <div className="w-full h-full bg-gray-900 animate-pulse rounded-xl" />
+  <div className="w-full h-full bg-gray-200 animate-pulse rounded-xl" />
 );
 
 export const revalidate = 86400; // 1 day
@@ -31,6 +31,7 @@ const BlogsPage = async () => {
                 alt='Image'
                 src='/assets/blogHero.png'
                 className='rounded-xl object-cover w-full h-full'
+                loading='lazy'
               />
             </Suspense>
           </div>
@@ -39,7 +40,7 @@ const BlogsPage = async () => {
         <section className='w-[90%] m-auto mb-10'>
           <h1 className='font-bold text-4xl mt-10'>Latest blogs</h1>
           <Suspense fallback={<BlogSkeletonCard/>}>
-            <BlogsGrid/>
+            <BlogsGrid blogs={blogs}/>
           </Suspense>
         </section>
       </main>

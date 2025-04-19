@@ -1,6 +1,7 @@
 'use client'
 
 import { forgotPassword } from "@/actions/auth/forgotPassword"
+import Logo from "@/components/general/Logo"
 import Link from "next/link"
 import { useState } from "react"
 import { toast } from "react-toastify"
@@ -32,7 +33,8 @@ const ForgotPasswordPage = () => {
   return (
     <div className="h-screen flex">
     <div className="m-auto max-w-[400px] w-[80%] -translate-y-4">
-        <h3 className="text-center">Forgot password?</h3>
+        <Logo/>
+        <p className="text-center font-semibold text-gray-400 text-[17px] mb-4">Forgot password? Lets reset your password.</p>
         <form className="flex flex-col gap-2  m-auto mb-3">
             <input
                 type="email"

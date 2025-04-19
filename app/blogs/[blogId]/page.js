@@ -1,4 +1,5 @@
 import BlogContent from "@/components/client/BlogContent";
+import Footer from "@/components/general/Footer";
 import NavBar from "@/components/general/NavBar";
 import { createClient } from "@/lib/supabase/server";
 
@@ -21,6 +22,7 @@ const BlogDetailsPage = async ({ params }) => {
   }
   
   return (
+    <>
     <div>
         <div>
             <NavBar/>
@@ -32,6 +34,8 @@ const BlogDetailsPage = async ({ params }) => {
         </section>
       </main>
     </div>
+    <Footer/>
+    </>
   )
 }
 

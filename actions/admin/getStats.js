@@ -31,6 +31,7 @@ export async function getNumberOfBlogs() {
         return null 
     }
 
+    console.log("Number of blogs:", count)
     return count
 }
 

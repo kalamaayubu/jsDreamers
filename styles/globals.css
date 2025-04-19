@@ -19,7 +19,21 @@ textarea {
   @apply border outline-none py-2 px-3;
 }
 button {
-  @apply px-3 py-[13px] outline-none rounded-lg;
+  @apply px-3 py-[11px] outline-none rounded-lg;
+}
+/* Gradient button */
+.gradient-button-blue-purple {
+  background-image: linear-gradient(to bottom right, #1d4ed8 20%, #9333ea 90%);
+  color: white;
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+}
+.gradient-button-blue-purple:hover {
+  background-image: linear-gradient(to top left, #1d4ed8, #9333ea);
+}
+/* blue-purple gradient text */
+.gradient-text-blue-purple {
+  @apply bg-gradient-to-br from-blue-700 from-20% via-purple-600 via-100% bg-clip-text text-transparent;
 }
 
 /* REACT QUILL STYLES */

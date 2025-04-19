@@ -1,10 +1,8 @@
-import { fetchBlogs } from "@/actions/blogs/fetchBlogs";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
-const BlogsGrid = async () => {
-  const blogs = await fetchBlogs();
-
+const BlogsGrid = async ({ blogs }) => {
   if (!blogs || blogs.length === 0) {
     return <p>No blogs available.</p>;
   }
@@ -17,13 +15,20 @@ const BlogsGrid = async () => {
           className="shadow-md rounded-lg overflow-hidden border border-gray-100 flex flex-col gap-2"
         >
           <div className="h-[200px]">
-            <Image
-              src={blog.image}
-              width={2000}
-              height={200}
-              className="w-full object-cover h-full"
-              alt={blog.title}
-            />
+            <Suspense
+              fallback={
+                <div className="w-full h-full bg-gray-200 animate-pulse rounded-xl" />
+              }
+            >
+              <Image
+                src={blog.image}
+                width={2000}
+                height={200}
+                className="w-full object-cover h-full"
+                loading="lazy"
+                alt={blog.title}
+              />
+            </Suspense>
           </div>
           <div className="text-xl px-4 py-2 flex flex-col gap-2">
             <p className="line-clamp-2">{blog.title}</p>

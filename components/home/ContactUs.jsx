@@ -14,9 +14,7 @@ const ContactUs = () => {
           placeholder="Your message here..."
           className="rounded-md"
         />
-        <button className="bg-blue-700 hover:bg-blue-600 text-white rounded-md">
-          Submit
-        </button>
+        <button className="gradient-button-blue-purple">Submit</button>
       </form>
     </section>
   );

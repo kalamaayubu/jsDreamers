@@ -7,13 +7,9 @@ const Hero = () => {
       <div className="flex flex-col items-center lg:items-start lg:mt-4">
         <h1 className="text-4xl sm:text-[2.7rem] lg:text-5xl font-bold leading-tight lg:leading-tight max-w-[450px] mb-5 text-center lg:text-start">
           Navigating the web of
-          <span className=" bg-gradient-to-br from-blue-700 from-20% via-purple-600 via-90% bg-clip-text text-transparent">
-            {" "}
-            development
-          </span>
-          .
+          <span className="gradient-text-blue-purple"> development</span>.
         </h1>
-        <p className="text-gray-700 lg:max-w-[450px] sm:max-w-[780px] text-xl text-center lg:text-start px-2 lg:px-0 mb-8">
+        <p className="text-gray-700 lg:max-w-[500px] sm:max-w-[780px] text-xl text-center lg:text-start px-2 lg:px-0 mb-8">
           At jsDreamers, we're committed to sharing everything we've
           learned—completely free, forever. We understand that passion and
           commitment should define your journey, not your financial situation.
