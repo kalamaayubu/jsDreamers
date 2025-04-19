@@ -32,7 +32,7 @@ const ForgotPasswordPage = () => {
 
   return (
     <div className="h-screen flex">
-    <div className="m-auto max-w-[400px] w-[80%] -translate-y-4">
+    <div className="m-auto max-w-[400px] w-[80%] -translate-y-4 sm:border sm:border-gray-200 p-6 rounded-lg">
         <Logo/>
         <p className="text-center font-semibold text-gray-400 text-[17px] mb-4">Forgot password? Lets reset your password.</p>
         <form className="flex flex-col gap-2  m-auto mb-3">

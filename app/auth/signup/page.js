@@ -41,7 +41,7 @@ const SignupPage = () => {
 
     return (
         <div className="h-screen flex">
-            <div className="m-auto max-w-[450px] w-[80%] -translate-y-4 border border-gray-200 p-6 rounded-lg">
+            <div className="m-auto max-w-[450px] w-[80%] -translate-y-4 sm:border sm:border-gray-200 p-6 rounded-lg">
                 <Logo/>
                 <p className="text-center font-semibold text-gray-400 text-[17px] mb-4">Register a new account to get started.</p>
                 <div className="flex flex-col w-full lg:items-center gap-3 lg:flex-row ">

@@ -1,6 +1,7 @@
 'use client'
 
 import { resetPassword } from "@/actions/auth/resetPassword"
+import Logo from "@/components/general/Logo"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { toast } from "react-toastify"
@@ -54,8 +55,9 @@ const ResetPasswordPage = () => {
 
   return (
     <div className="h-screen flex">
-    <div className="m-auto max-w-[400px] w-[80%] -translate-y-4">
-        <h3 className="text-center">Reset Password</h3>
+    <div className="m-auto max-w-[400px] w-[80%] -translate-y-4 sm:border sm:border-gray-200 p-6 rounded-lg">
+        <Logo/>
+        <p className="text-center font-semibold text-gray-400 text-[17px] mb-4">Almost there, reset your password.</p>
         <form onSubmit={handleResetPassword} className="flex flex-col gap-2  m-auto mb-3">
             <input
                 type="password"
