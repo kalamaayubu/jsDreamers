@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const ContinueWithGithub = () => {
   return (
-    <div className="flex items-center justify-center gap-4 py-3 px-4 rounded-lg cursor-pointer border border-gray-200 hover:bg-gray-100 hover:border-gray-100 bg-white transition duration-200 ease-in-out">
+    <div className="flex items-center justify-center gap-4 py-3 px-4 rounded-lg cursor-pointer border border-gray-200 hover:bg-gray-100 hover:border-gray-200 bg-white transition duration-200 ease-in-out w-full">
       <Image
         width={1000}
         height={1000}

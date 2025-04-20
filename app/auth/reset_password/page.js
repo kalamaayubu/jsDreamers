@@ -3,26 +3,47 @@
 import { resetPassword } from "@/actions/auth/resetPassword"
 import Logo from "@/components/general/Logo"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
 import { toast } from "react-toastify"
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { Loader2 } from "lucide-react"
 
 const ResetPasswordPage = () => {
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
-    const [isProcessing, setIsProcessing] = useState(false)
     const router = useRouter()
 
-    const handleResetPassword = async (e) => {
-        e.preventDefault()
-        setIsProcessing(true)
+    // Form validation schema
+    const validationSchema = Yup.object().shape({
+        password: Yup.string()
+            .required('Password is required')
 
-        if (password !== confirmPassword) {
-            toast.error('Passwords are not matching!')
-            setIsProcessing(false)
-            return
-        }
+            // Password validation rules
+            .test(
+                'password-rules',
+                (value, context) => {
+                    const rules = [];
+                    if (!value) return 'Password is required';
+                    if (value.length < 8) rules.push('• be at least 8 characters long');
+                    if (!/[a-z]/.test(value)) rules.push('• include a lowercase letter');
+                    if (!/[A-Z]/.test(value)) rules.push('• include an uppercase letter');
+                    if (!/[0-9]/.test(value)) rules.push('• include a number');
+                    if (!/[@$!%*?&]/.test(value)) rules.push('• include a special character');
 
-        // Send a reset password request
+                    if (rules.length > 0) {
+                        return context.createError({
+                            message: `Password must:\n${rules.join('\n')}`,
+                        });
+                    }
+
+                    return true;
+                }
+            ),
+        confirmPassword: Yup.string()
+            .oneOf([Yup.ref('password'), null], 'Passwords must match')
+            .required('Confirm password is required'),
+    });
+
+    // Handle reset password request
+    const handleResetPassword = async (values, { setSubmitting }) => {
         try {
             // Extract the hash param from the url
             const hasParams = new URLSearchParams(window.location.hash.substring(1))
@@ -30,11 +51,11 @@ const ResetPasswordPage = () => {
 
             if (!accessToken) {
                 toast.error('Invalid or missing access token.')
-                setIsProcessing(false)
+                setSubmitting(false)
                 return
             }
 
-            const res = await resetPassword(password, accessToken)
+            const res = await resetPassword({password: values.password, accessToken})
 
             if (res.error) {
                 toast.error(res.error)
@@ -47,38 +68,50 @@ const ResetPasswordPage = () => {
             console.log('Error resetting password:', error)
             toast.error('Error resetting password.')
         } finally{
-            setConfirmPassword('')
-            setPassword('')
-            setIsProcessing(false)
+            setSubmitting(false)
         }
     }
 
   return (
     <div className="h-screen flex">
-    <div className="m-auto max-w-[400px] w-[80%] -translate-y-4 sm:border sm:border-gray-200 p-6 rounded-lg">
+    <div className="m-auto max-w-[400px] w-[80%] -translate-y-4 p-6 rounded-lg">
         <Logo/>
         <p className="text-center font-semibold text-gray-400 text-[17px] mb-4">Almost there, reset your password.</p>
-        <form onSubmit={handleResetPassword} className="flex flex-col gap-2  m-auto mb-3">
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                placeholder="Enter new passsword..."
-                className="rounded-md focus:border focus:border-gray-400"
-            />
-            <input
-                type="password"
-                required
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm your password..."
-                className="rounded-md focus:border focus:border-gray-400"
-            />
-            <button type="submit" disabled={isProcessing} className={`bg-blue-700 ${isProcessing ? 'cursor-not-allowed bg-slate-500' : 'hover:bg-blue-600'}`}>
-                {isProcessing? <span className="animate-pulse">Resetting...</span> : 'Reset password'}
-            </button>
-        </form>
+        <Formik
+            initialValues={{ password: '', confirmPassword: '' }}
+            validationSchema={validationSchema}
+            onSubmit={handleResetPassword}
+        >
+            {({ isSubmitting, touched, errors }) => (
+                <Form className="flex flex-col gap-2 mb-3">
+                    <Field
+                        type="password"
+                        name="password"
+                        placeholder="Enter new password..."
+                        className={`rounded-md focus:border focus:border-gray-400 ${touched.password && errors.password ? 'border-red-500' : ''}`}
+                    />
+                    <ErrorMessage name="password" render={msg => (
+                        <div className="text-red-500 text-sm whitespace-pre-line">
+                            {msg}
+                        </div>
+                    )} className="text-red-500 text-sm" />
+                    <Field
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Confirm your password..."
+                        className={`rounded-md focus:border focus:border-gray-400 ${touched.confirmPassword && errors.confirmPassword ? 'border-red-500' : ''}`}
+                    />
+                    <ErrorMessage name="confirmPassword" component="div" className="text-red-500 text-sm" />
+                    <button 
+                        type="submit" 
+                        disabled={isSubmitting} 
+                        className={`bg-blue-700 text-white ${isSubmitting ? 'cursor-not-allowed bg-slate-500' : 'hover:bg-blue-600'}`}
+                    >
+                        {isSubmitting ? <span className="animate-pulse flex items-center gap-2 justify-center"> <Loader2 className="animate-spin"/> Resetting...</span> : 'Reset password'}
+                    </button>
+                </Form>
+            )}
+        </Formik>
     </div>
     </div>
   )
