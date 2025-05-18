@@ -4,11 +4,17 @@ import supabaseAdmin from "@/lib/supabase/supabaseAdmin"
 
 export async function forgotPassword(email) {
     // Check if the email exists
-    const { data, error } = await supabaseAdmin.auth.admin.listUsers({ email })
+    const { data: users,  error: fetchUsersError } = await supabaseAdmin.auth.admin.listUsers()
 
-    if (error) {
-        console.log('Error:::', error.message)
-        return { success: false, error: `${error.message}` };
+    if (fetchUsersError) {
+        console.log('Error:::', fetchUsersError.message)
+        return { success: false, error: `${fetchUsersError.message}` };
+    }
+
+    // Find the user by email
+    const user = users?.users?.find(user => user.email === email)
+    if (!user) {
+        return { success: false, error: 'Email not found!' };
     }
 
     // Get the base URL dynamically for appropriate redirection

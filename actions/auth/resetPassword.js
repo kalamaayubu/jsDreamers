@@ -4,6 +4,7 @@ import supabaseAdmin from "@/lib/supabase/supabaseAdmin";
 
 
 export async function resetPassword(newPassword, accessToken) {
+    // Check if the access token is provided
     if (!accessToken) {
         return { success: false, error: "Access token is required!" };
     }
@@ -17,7 +18,7 @@ export async function resetPassword(newPassword, accessToken) {
     }
 
     // Update the password using the Supabase Admin API
-    const { data, error } = await supabaseAdmin.auth.admin.updateUserById(user.id, {
+    const { error } = await supabaseAdmin.auth.admin.updateUserById(user.id, {
         password: newPassword
     })
 

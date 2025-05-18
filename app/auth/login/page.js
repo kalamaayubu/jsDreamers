@@ -94,7 +94,7 @@ const LoginPage = () => {
         <p className="text-center text-gray-600 text-[17px] mb-4">Welcome back! Please log in to your account</p>
         <div className="flex flex-col w-full lg:items-center gap-3">
             <ContinueWithGoogle/>
-            <ContinueWithGithub/>
+            {/* <ContinueWithGithub/> */}
         </div>
         <div className="my-4 text-gray-400 flex justify-center">
             <p>OR login with email and password</p>

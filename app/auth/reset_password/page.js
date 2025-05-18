@@ -7,9 +7,11 @@ import { toast } from "react-toastify"
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Loader2 } from "lucide-react"
+import { useEffect, useState } from "react"
 
 const ResetPasswordPage = () => {
     const router = useRouter()
+    const [accessToken, setAccessToken] = useState(null)
 
     // Form validation schema
     const validationSchema = Yup.object().shape({
@@ -42,20 +44,29 @@ const ResetPasswordPage = () => {
             .required('Confirm password is required'),
     });
 
+    // Extract access token from the URL hash 
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const hash = window.location.hash.substring(1)
+            const params = new URLSearchParams(hash)
+            const token = params.get("access_token")
+            if (token) {
+                setAccessToken(token)
+            }
+        }
+    }, [])
+
     // Handle reset password request
     const handleResetPassword = async (values, { setSubmitting }) => {
         try {
-            // Extract the hash param from the url
-            const hasParams = new URLSearchParams(window.location.hash.substring(1))
-            const accessToken = hasParams.get('access_token');
-
             if (!accessToken) {
                 toast.error('Invalid or missing access token.')
                 setSubmitting(false)
                 return
             }
-
-            const res = await resetPassword({password: values.password, accessToken})
+            
+            // Call the reset password function with the new password and access token
+            const res = await resetPassword(values.password, accessToken)
 
             if (res.error) {
                 toast.error(res.error)
@@ -105,7 +116,7 @@ const ResetPasswordPage = () => {
                     <button 
                         type="submit" 
                         disabled={isSubmitting} 
-                        className={`bg-blue-700 text-white ${isSubmitting ? 'cursor-not-allowed bg-slate-500' : 'hover:bg-blue-600'}`}
+                        className={`bg-blue-700 text-white ${isSubmitting ? 'cursor-not-allowed bg-opacity-60' : 'hover:bg-blue-600'}`}
                     >
                         {isSubmitting ? <span className="animate-pulse flex items-center gap-2 justify-center"> <Loader2 className="animate-spin"/> Resetting...</span> : 'Reset password'}
                     </button>

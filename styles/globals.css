@@ -21,6 +21,12 @@ textarea {
 button {
   @apply px-3 py-[11px] outline-none rounded-lg;
 }
+button:hover {
+  @apply bg-opacity-85;
+}
+button:active {
+  @apply scale-95;
+}
 /* Gradient button */
 .gradient-button-blue-purple {
   background-image: linear-gradient(to bottom right, #1d4ed8 20%, #9333ea 90%);

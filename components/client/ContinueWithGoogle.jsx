@@ -1,3 +1,5 @@
+"use client";
+
 import { createClient } from "@/lib/supabase/client";
 import Image from "next/image";
 import { toast } from "react-toastify";
@@ -5,18 +7,22 @@ import { toast } from "react-toastify";
 const ContinueWithGoogle = () => {
   const supabase = createClient();
 
+  // Function to handle Google login
   const handleGoogleLogin = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `http://localhost:3000/auth/forgot_password`,
+        redirectTo: `${location.origin}/auth/google_auth_callback`, // Redirect URL after successful login
       },
     });
+
     if (error) {
       console.error("Error during Google login:", error.message);
       toast.error("Error during Google login. Please try again.");
+      return;
     }
   };
+
   return (
     <button
       onClick={handleGoogleLogin}
@@ -34,7 +40,7 @@ const ContinueWithGoogle = () => {
         Continue with Google
       </p>
       <p className="hidden md:block text-center text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
-        Continue with GitHub
+        Continue with Google
       </p>
     </button>
   );

@@ -16,7 +16,7 @@ const Hero = () => {
           Our goal is to provide valuable resources for those who are eager to
           learn but may not have the means for paid resources.
         </p>
-        <button className="bg-blue-700 text-white rounded-md px-4 py-2 hover:bg-blue-600 hidden lg:flex">
+        <button className="bg-blue-700 text-white rounded-md px-4 py-2 hidden lg:flex">
           Start learning
         </button>
       </div>
