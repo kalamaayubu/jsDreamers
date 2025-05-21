@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { toast } from "react-toastify";
 import ContinueWithGoogle from "@/components/client/ContinueWithGoogle";
-import ContinueWithGithub from "@/components/client/ContinueWithGithub";
+// import ContinueWithGithub from "@/components/client/ContinueWithGithub";
 import Logo from "@/components/general/Logo";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -77,7 +77,7 @@ const SignupPage = () => {
                 <p className="text-center text-gray-600 text-[17px] mb-4">Register a new account to get started.</p>
                 <div className="flex flex-col w-full lg:items-center gap-3">
                     <ContinueWithGoogle/>
-                    <ContinueWithGithub/>
+                    {/* <ContinueWithGithub/> */}
                 </div>
                 <div className="my-4 text-gray-400 flex justify-center">
                    <p>OR register with email and password</p>
