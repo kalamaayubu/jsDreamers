@@ -1,7 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
-import { rollbackUser } from "../../../../utils/rollbackSignup";
-import supabaseAdmin from "@/lib/supabase/supabaseAdmin";
 
 export async function POST(req) {
     try {
@@ -12,36 +10,18 @@ export async function POST(req) {
         const { data: user, error: authError } = await supabase.auth.signUp({ email, password });
 
         if (authError || !user) {
-            console.error("Auth Error:", authError?.message);
+            console.error("Auth Error:", authError);
             return NextResponse.json({ success: false, error: authError?.message || "Auth failed" }, { status: 400 });
         }
 
         const userId = user.user?.id;
 
-        // Step 2: Call the signup_transaction function
-        const { error: rpcError } = await supabase.rpc("signup_transaction", {
-            _user_id: userId,
-            _email: email,
-        });
-
-        if (rpcError) {
-            console.error("Transaction Error:", rpcError.message);
-
-            // 🚨 Rollback: Delete user if profile creation fails
-            const rollbackSuccess = await rollbackUser(supabaseAdmin, userId)
-
-            if (!rollbackSuccess) {
-                return NextResponse.json({ success: false, error: "Signup failed, could not rollback. Please contact support."}, { status: 500 })
-            }
-
-            return NextResponse.json({ success: false, error: "Signup failed, user deleted." }, { status: 400 });
-        }
-
+        // Fetch the profile to ensure it was created
         const { data: userProfile, error: profileError } = await supabase
             .from('profiles')
             .select('*')
             .eq('id', userId)
-            .single();
+            .maybeSingle();
 
         if (profileError) {
             console.error("Profile Insertion Error:", profileError?.message);

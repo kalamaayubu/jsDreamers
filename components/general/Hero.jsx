@@ -10,15 +10,17 @@ const Hero = () => {
           <span className="gradient-text-blue-purple"> development</span>.
         </h1>
         <p className="text-gray-700 lg:max-w-[500px] sm:max-w-[780px] text-xl text-center lg:text-start px-2 lg:px-0 mb-8">
-          At jsDreamers, we're committed to sharing everything we've
-          learned—completely free, forever. We understand that passion and
-          commitment should define your journey, not your financial situation.
-          Our goal is to provide valuable resources for those who are eager to
-          learn but may not have the means for paid resources.
+          At jsDreamers, we're committed to sharing everything we've learned,
+          completely free, forever. We understand that passion and commitment
+          should define your journey, not your financial situation. Our goal is
+          to provide valuable resources for those who are eager to learn but may
+          not have the means for paid resources.
         </p>
-        <button className="bg-blue-700 text-white rounded-md px-4 py-2 hidden lg:flex">
-          Start learning
-        </button>
+        <Link href={"/blogs"}>
+          <button className="bg-blue-700 text-white rounded-md px-4 py-2 hidden lg:flex">
+            Start learning
+          </button>
+        </Link>
       </div>
       <div className="flex flex-col items-center">
         <img
